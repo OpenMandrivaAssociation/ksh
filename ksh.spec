@@ -6,6 +6,7 @@ License:	Common Public License
 Group:		Shells
 URL:		http://kornshell.com
 Source:		%{name}-%{version}.tar.bz2
+BuildRoot:	%_tmppath/%name-%version-root
 Prereq:		coreutils, grep, rpm-helper >= 0.7
 
 %description
