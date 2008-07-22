@@ -1,13 +1,13 @@
 Summary:	The real AT&T version of the Korn shell
 Name:		ksh
 Version:	93q
-Release:	%mkrel 2
+Release:	%mkrel 3
 License:	Common Public License
 Group:		Shells
 URL:		http://kornshell.com
 Source:		%{name}-%{version}.tar.bz2
 BuildRoot:	%_tmppath/%name-%version-root
-Prereq:		coreutils, grep, rpm-helper >= 0.7
+Requires(post,pre):		coreutils, grep, rpm-helper >= 0.7
 
 %description
 Ksh is a UNIX command interpreter (shell) that is intended for both
