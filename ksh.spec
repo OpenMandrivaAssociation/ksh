@@ -1,8 +1,8 @@
 Summary:	The real AT&T version of the Korn shell
 Name:		ksh
 Version:	93t
-Release:	%mkrel 2
-License:	CPL
+Release:	%mkrel 3
+License:	CPLv1
 Group:		Shells
 URL:		http://kornshell.com
 Source0:	http://www.research.att.com/~gsf/download/tgz/INIT.2008-06-24.tar.bz2
