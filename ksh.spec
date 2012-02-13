@@ -1,18 +1,16 @@
 Summary:	The real AT&T version of the Korn shell
 Name:		ksh
-Version:	93t
-Release:	%mkrel 3
+Version:	93.20110208
+Release:	1
 License:	CPLv1
 Group:		Shells
 URL:		http://kornshell.com
-Source0:	http://www.research.att.com/~gsf/download/tgz/INIT.2008-06-24.tar.bz2
-Source1:	http://www.research.att.com/~gsf/download/tgz/ast-base.2008-06-24.tar.bz2
-Patch0:		ast_ksh_20080624_getenv_link_fix.diff
+Source0:	http://www.research.att.com/~gsf/download/tgz/INIT.2012-01-01.tgz
+Source1:	http://www.research.att.com/~gsf/download/tgz/ast-base.2011-02-08.tgz 
 Requires(post): coreutils, grep, rpm-helper >= 0.7
 Requires(postun): rpm-helper >= 0.7
 Requires(pre): coreutils, grep, rpm-helper >= 0.7
 BuildRequires:	chrpath
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 Ksh is a UNIX command interpreter (shell) that is intended for both interactive
@@ -27,14 +25,14 @@ named references and floating point math.
 %prep
 
 %setup -q -c -a1
-%patch0 -p0
 
 %build
+sed -i -e 's,cd /tmp,cd "${TMPDIR:-/tmp}",' \
+        bin/package src/cmd/INIT/package.sh || die
+
 bin/package make CCFLAGS="%{optflags} -fPIC"
 
 %install
-rm -rf %{buildroot}
-
 install -d %{buildroot}/bin
 install -d %{buildroot}%{_mandir}/man1
 
@@ -52,11 +50,7 @@ chrpath -d %{buildroot}/bin/ksh93
 %postun
 /usr/share/rpm-helper/del-shell %{name} $1 /bin/ksh93
 
-%clean
-rm -rf %{buildroot}
-
 %files
-%defattr(-,root,root)
 %doc README CPL1.0.txt
 /bin/ksh93
 %{_mandir}/man1/ksh93.1*
