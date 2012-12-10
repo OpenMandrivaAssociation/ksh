@@ -54,3 +54,32 @@ chrpath -d %{buildroot}/bin/ksh93
 %doc README CPL1.0.txt
 /bin/ksh93
 %{_mandir}/man1/ksh93.1*
+
+
+%changelog
+* Mon Feb 13 2012 Alexander Khrukin <akhrukin@mandriva.org> 93.20110208-1
++ Revision: 773747
+- version update 2011-02-08
+
+  + Sandro Cazzaniga <kharec@mandriva.org>
+    - fix licence
+
+  + Thierry Vignaud <tv@mandriva.org>
+    - rebuild
+
+* Wed Jul 23 2008 Oden Eriksson <oeriksson@mandriva.com> 93t-1mdv2009.0
++ Revision: 242358
+- 93t (2008-06-24)
+- package it the PLD way
+- added P0 to make it build
+- it requires -fPIC, make it so...
+- nuke rpath with chrpath
+
+  + Thierry Vignaud <tv@mandriva.org>
+    - rebuild
+    - kill re-definition of %%buildroot on Pixel's request
+    - use %%mkrel
+
+  + Olivier Blin <blino@mandriva.org>
+    - restore BuildRoot
+
