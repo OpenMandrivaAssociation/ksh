@@ -1,0 +1,14 @@
+diff -up ksh-1.0.0-beta.2/src/cmd/ksh93/data/strdata.c.omv~ ksh-1.0.0-beta.2/src/cmd/ksh93/data/strdata.c
+--- ksh-1.0.0-beta.2/src/cmd/ksh93/data/strdata.c.omv~	2022-01-11 21:31:33.363504356 +0100
++++ ksh-1.0.0-beta.2/src/cmd/ksh93/data/strdata.c	2022-01-11 21:33:58.452795050 +0100
+@@ -22,6 +22,10 @@
+ /*
+  * data for string evaluator library
+  */
++#define _BITS_FLOATN_COMMON_H // ksh doesn't seem to like _Float* types at all
++#define _BITS_FLOATN_H
++#define _Float64x double
++#define _Float128 long double
+ 
+ #include	<ast_standards.h>
+ #include	"FEATURE/options"

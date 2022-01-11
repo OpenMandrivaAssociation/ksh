@@ -1,12 +1,14 @@
+%define beta beta.2
+
 Summary:	The real AT&T version of the Korn shell
 Name:		ksh
-Version:	93.20110208
-Release:	2
+Version:	1.0.0
+Release:	%{?beta:0.%{beta}.}1
 License:	CPLv1
 Group:		Shells
 URL:		http://kornshell.com
-Source0:	http://www.research.att.com/~gsf/download/tgz/INIT.2012-01-01.tgz
-Source1:	http://www.research.att.com/~gsf/download/tgz/ast-base.2011-02-08.tgz 
+Source0:	https://github.com/ksh93/ksh/archive/refs/tags/v%{version}%{?beta:-%{beta}}.tar.gz
+Patch0:		ksh-1.0.0-beta.2-work-around-float-types.patch
 Requires(post): coreutils, grep, rpm-helper >= 0.7
 Requires(postun): rpm-helper >= 0.7
 Requires(pre): coreutils, grep, rpm-helper >= 0.7
@@ -23,20 +25,30 @@ For example, it has lexical scoping, compound variables, associative arrays,
 named references and floating point math.
 
 %prep
+%autosetup -p1 -n ksh-%{version}%{?beta:-%{beta}}
+#/dev/fd test does not work because of mock
+sed -i 's|ls /dev/fd|ls /proc/self/fd|' src/cmd/ksh93/features/options
 
-%setup -q -c -a1
+# disable register for debugging
+sed -i 1i"#define register" src/lib/libast/include/ast.h
 
 %build
 sed -i -e 's,cd /tmp,cd "${TMPDIR:-/tmp}",' \
         bin/package src/cmd/INIT/package.sh || die
 
-bin/package make CCFLAGS="%{optflags} -fPIC"
+XTRAFLAGS=""
+for f in -Wno-unknown-pragmas -Wno-missing-braces -Wno-unused-result -Wno-return-type -Wno-int-to-pointer-cast -Wno-parentheses -Wno-unused -Wno-unused-but-set-variable -Wno-cpp -Wno-maybe-uninitialized -Wno-lto-type-mismatch -P
+do
+  $CC $f -E - </dev/null >/dev/null 2>&1 && XTRAFLAGS="$XTRAFLAGS $f"
+done
+export CCFLAGS="$RPM_OPT_FLAGS $RPM_LD_FLAGS $XTRAFLAGS -fno-strict-aliasing"
+./bin/package make
 
 %install
 install -d %{buildroot}/bin
 install -d %{buildroot}%{_mandir}/man1
 
-install -m0755 arch/*/bin/ok/ksh %{buildroot}/bin/ksh93
+install -m0755 arch/*/bin/ksh %{buildroot}/bin/ksh93
 install -m0644 arch/*/man/man1/sh.1 %{buildroot}%{_mandir}/man1/ksh93.1
 
 cp lib/package/LICENSES/ast CPL1.0.txt
@@ -54,32 +66,3 @@ chrpath -d %{buildroot}/bin/ksh93
 %doc README CPL1.0.txt
 /bin/ksh93
 %{_mandir}/man1/ksh93.1*
-
-
-%changelog
-* Mon Feb 13 2012 Alexander Khrukin <akhrukin@mandriva.org> 93.20110208-1
-+ Revision: 773747
-- version update 2011-02-08
-
-  + Sandro Cazzaniga <kharec@mandriva.org>
-    - fix licence
-
-  + Thierry Vignaud <tv@mandriva.org>
-    - rebuild
-
-* Wed Jul 23 2008 Oden Eriksson <oeriksson@mandriva.com> 93t-1mdv2009.0
-+ Revision: 242358
-- 93t (2008-06-24)
-- package it the PLD way
-- added P0 to make it build
-- it requires -fPIC, make it so...
-- nuke rpath with chrpath
-
-  + Thierry Vignaud <tv@mandriva.org>
-    - rebuild
-    - kill re-definition of %%buildroot on Pixel's request
-    - use %%mkrel
-
-  + Olivier Blin <blino@mandriva.org>
-    - restore BuildRoot
-
