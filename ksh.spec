@@ -4,7 +4,7 @@ Summary:	The real AT&T version of the Korn shell
 Name:		ksh
 Version:	1.0.0
 Release:	%{?beta:0.%{beta}.}1
-License:	CPLv1
+License:	Eclipse Public License 1.0
 Group:		Shells
 URL:		http://kornshell.com
 Source0:	https://github.com/ksh93/ksh/archive/refs/tags/v%{version}%{?beta:-%{beta}}.tar.gz
@@ -51,8 +51,6 @@ install -d %{buildroot}%{_mandir}/man1
 install -m0755 arch/*/bin/ksh %{buildroot}/bin/ksh93
 install -m0644 arch/*/man/man1/sh.1 %{buildroot}%{_mandir}/man1/ksh93.1
 
-cp lib/package/LICENSES/ast CPL1.0.txt
-
 # nuke rpath
 chrpath -d %{buildroot}/bin/ksh93
 
@@ -63,6 +61,6 @@ chrpath -d %{buildroot}/bin/ksh93
 /usr/share/rpm-helper/del-shell %{name} $1 /bin/ksh93
 
 %files
-%doc README CPL1.0.txt
+%doc README.md LICENSE.md
 /bin/ksh93
 %{_mandir}/man1/ksh93.1*
