@@ -1,4 +1,4 @@
-%define beta beta.2
+#define beta beta.2
 
 Summary:	The real AT&T version of the Korn shell
 Name:		ksh

@@ -1,7 +1,7 @@
-diff -up ksh-1.0.0-beta.2/src/cmd/ksh93/data/strdata.c.omv~ ksh-1.0.0-beta.2/src/cmd/ksh93/data/strdata.c
---- ksh-1.0.0-beta.2/src/cmd/ksh93/data/strdata.c.omv~	2022-01-11 21:31:33.363504356 +0100
-+++ ksh-1.0.0-beta.2/src/cmd/ksh93/data/strdata.c	2022-01-11 21:33:58.452795050 +0100
-@@ -22,6 +22,10 @@
+diff -up ksh-1.0.0/src/cmd/ksh93/data/strdata.c.1~ ksh-1.0.0/src/cmd/ksh93/data/strdata.c
+--- ksh-1.0.0/src/cmd/ksh93/data/strdata.c.1~	2022-08-02 22:38:35.072534451 +0200
++++ ksh-1.0.0/src/cmd/ksh93/data/strdata.c	2022-08-02 22:43:27.499339059 +0200
+@@ -17,6 +17,10 @@
  /*
   * data for string evaluator library
   */
@@ -10,5 +10,5 @@ diff -up ksh-1.0.0-beta.2/src/cmd/ksh93/data/strdata.c.omv~ ksh-1.0.0-beta.2/src
 +#define _Float64x double
 +#define _Float128 long double
  
+ #include	"shopt.h"
  #include	<ast_standards.h>
- #include	"FEATURE/options"
