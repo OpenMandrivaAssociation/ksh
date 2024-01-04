@@ -2,7 +2,7 @@
 
 Summary:	The real AT&T version of the Korn shell
 Name:		ksh
-Version:	1.0.7
+Version:	1.0.8
 Release:	%{?beta:0.%{beta}.}1
 License:	Eclipse Public License 1.0
 Group:		Shells
