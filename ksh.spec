@@ -2,7 +2,7 @@
 
 Summary:	The real AT&T version of the Korn shell
 Name:		ksh
-Version:	1.0.8
+Version:	1.0.9
 Release:	%{?beta:0.%{beta}.}1
 License:	Eclipse Public License 1.0
 Group:		Shells
@@ -34,7 +34,7 @@ sed -i 1i"#define register" src/lib/libast/include/ast.h
 
 %build
 sed -i -e 's,cd /tmp,cd "${TMPDIR:-/tmp}",' \
-        bin/package src/cmd/INIT/package.sh || die
+        bin/package || die
 
 XTRAFLAGS=""
 for f in -Wno-unknown-pragmas -Wno-missing-braces -Wno-unused-result -Wno-return-type -Wno-int-to-pointer-cast -Wno-parentheses -Wno-unused -Wno-unused-but-set-variable -Wno-cpp -Wno-maybe-uninitialized -Wno-lto-type-mismatch -P
