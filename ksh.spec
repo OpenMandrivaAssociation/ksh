@@ -6,7 +6,7 @@ Version:	1.0.10
 Release:	%{?beta:0.%{beta}.}1
 License:	Eclipse Public License 1.0
 Group:		Shells
-URL:		http://kornshell.com
+URL:		https://kornshell.com
 Source0:	https://github.com/ksh93/ksh/archive/refs/tags/v%{version}%{?beta:-%{beta}}.tar.gz
 Patch0:		ksh-1.0.0-beta.2-work-around-float-types.patch
 Requires(post): coreutils, grep, rpm-helper >= 0.7
